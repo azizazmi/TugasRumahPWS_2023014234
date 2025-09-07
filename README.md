@@ -2,16 +2,16 @@
 > author: Azizah Aurellia Azmi - 20230140234
 
 ## Daftar Isi
-- [Deskripsi Project](#deskripsi-program)
-- [Struktur Project](#project-structure)
+- [Deskripsi Project](#deskripsi-project)
+- [Struktur Project](#struktur-project)
 - [Cara Menjalankan Project](#how-to-run)
-- [Dokumentasi Project](#project-documentation)
+- [Dokumentasi Project](#dokumentasi-project)
 
-## Deskripsi Program
+## Deskripsi Project
 Aplikasi web sederhana yang terdiri dari basis data MySQL, API dengan Node.js (Express.js), dan antarmuka HTML + JavaScript.
 Project ini dibuat untuk memenuhi tugas rumah mata kuliah PWS Semester Antara 2025.
 
-## Project Structure
+## Struktur Project
 ```
 ├── public/
 │   ├── form.html
@@ -44,11 +44,15 @@ Project ini dibuat untuk memenuhi tugas rumah mata kuliah PWS Semester Antara 20
    ```
    node server.js
    ```
+7. Add data
+   - Buka http://localhost:3000/form.html di web browser
+   - Isi form sesuai dengan data yang ingin diisikan
+   - Klik button "Lihat Data Pemain" untuk melihat daftar pemain
 
-## Project Documentation
+## Dokumentasi Project
 | Page | Screenshot |
 |---|---|
-| **Input Page** |xxx|
-| **Input Data** |xxx|
-| **Daftar Data** |xxx|
-| **Daftar Data di Database** |xxx|
+| **Input Page** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/2a3a5d64-6476-465c-ae75-801801a59c49" />|
+| **Input Data** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9fed01ec-7e87-443f-b667-41f47317969d" />|
+| **Daftar Data** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/01ee405f-3701-45da-b443-5f59c1008fb0" />|
+| **Daftar Data di Database** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f9c7cc15-0c70-431b-83ee-c5ca543fb63e" />|
