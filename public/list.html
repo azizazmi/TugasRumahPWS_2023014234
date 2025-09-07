@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Pemain - RJX Basket</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    :root {
+      --light-gray: #f8f9fa;
+      --dark-text: #212529;
+      --gray-text: #6c757d;
+      --primary-color: #007BFF;
+      --gray-border: #dee2e6;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-gray);
+      color: var(--dark-text);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-weight: 600;
+      font-size: 2.0rem;
+    }
+    
+    header p {
+      color: var(--gray-text);
+    }
+    
+    .button-group {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+    
+    .add-button {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+    
+    .add-button:hover {
+        background-color: #0056b3;
+    }
+
+    .add-button:active {
+        transform: scale(0.98);
+    }
+
+    /* Styling untuk container tabel */
+    .table-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden; /* Agar border-radius bekerja pada tabel */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse; /* Menghilangkan jarak antar border */
+    }
+
+    th, td {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    /* Styling untuk header tabel */
+    thead {
+        background-color: var(--gray-text);
+    }
+
+    th {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Styling untuk baris data */
+    tbody tr {
+        border-bottom: 1px solid var(--gray-border);
+        transition: background-color 0.2s ease;
+    }
+
+    tbody tr:last-child {
+        border-bottom: none; /* Hapus border di baris terakhir */
+    }
+
+    tbody tr:hover {
+        background-color: #f8f9fa; /* Efek hover */
+    }
+
+    /* Styling untuk gambar avatar */
+    .player-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%; /* Membuat gambar menjadi bulat */
+        object-fit: cover;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    
+    /* Untuk pesan loading atau error */
+    .message td {
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--gray-text);
+      padding: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Tim Inti RJX Basket</h1>
+      <p>Daftar pemain resmi yang terdaftar di tim kami.</p>
+    </header>
+    
+    <div class="button-group">
+        <a href="/form.html" class="add-button">+ Tambah Pemain Baru</a>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Nama Pemain</th>
+                    <th>Tinggi (cm)</th>
+                    <th>Tanggal Bergabung</th>
+                </tr>
+            </thead>
+            <tbody id="player-table-body">
+                </tbody>
+        </table>
+    </div>
+  </div>
+
+  <script>
+    async function loadPlayers() {
+      const tableBody = document.getElementById("player-table-body");
+      tableBody.innerHTML = `<tr class="message"><td colspan="4">Memuat data pemain...</td></tr>`;
+
+      try {
+        const res = await fetch("http://localhost:3000/api/records");
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const players = await res.json();
+
+        tableBody.innerHTML = ""; // Kosongkan pesan loading
+
+        if (players.length === 0) {
+            tableBody.innerHTML = `<tr class="message"><td colspan="4">Belum ada data pemain.</td></tr>`;
+            return;
+        }
+
+        players.forEach(player => {
+          // Format tanggal
+          const tanggalBergabung = new Date(player.Tanggal).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>
+              <img src="http://localhost:3000${player.Gambar}" alt="Foto ${player.Nama}" class="player-avatar">
+            </td>
+            <td><strong>${player.Nama}</strong></td>
+            <td>${player.Tinggi}</td>
+            <td>${tanggalBergabung}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } catch (err)
+      {
+        console.error("❌ Gagal mengambil data pemain:", err);
+        tableBody.innerHTML = `<tr class="message"><td colspan="4" style="color: #842029;">Gagal memuat data.</td></tr>`;
+      }
+    }
+    
+    // Panggil fungsi saat halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', loadPlayers);
+  </script>
+</body>
+</html>

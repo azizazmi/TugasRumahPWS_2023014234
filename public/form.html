@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Pemain Baru - RJX Basket</title>
+  <style>
+    /* Menggunakan font yang lebih modern dan enak dibaca */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    :root {
+      --primary-color: #007BFF;
+      --primary-hover: #0056b3;
+      --success-bg: #d1e7dd;
+      --success-text: #0f5132;
+      --error-bg: #f8d7da;
+      --error-text: #842029;
+      --light-gray: #f8f9fa;
+      --gray-border: #dee2e6;
+      --dark-text: #212529;
+      --blue-gray: #d8e1e8;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-gray);
+      color: var(--dark-text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 500px;
+      transition: all 0.3s ease;
+    }
+
+    .form-container:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .input-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    input[type="file"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--gray-border);
+      border-radius: 8px;
+      box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+    
+    input[type="file"] {
+      padding: 0.5rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary-color);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+    
+    button:active {
+        transform: scale(0.98);
+    }
+
+    .msg {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .button-lihat {
+      width: 50%;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--blue-gray);
+      color: black;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+
+    }
+
+    .msg.success { background: var(--success-bg); color: var(--success-text); }
+    .msg.error { background: var(--error-bg); color: var(--error-text); }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>🏀 Tambah Pemain Baru</h2>
+    <form id="playerForm">
+      <div class="input-group">
+        <label for="nama">Nama Pemain:</label>
+        <input type="text" id="nama" name="nama" required />
+      </div>
+
+      <div class="input-group">
+        <label for="tinggi">Tinggi (cm):</label>
+        <input type="number" id="tinggi" name="tinggi" required />
+      </div>
+
+      <div class="input-group">
+        <label for="tanggal">Tanggal Bergabung:</label>
+        <input type="date" id="tanggal" name="tanggal" required />
+      </div>
+
+      <div class="input-group">
+        <label for="gambar">Foto Pemain:</label>
+        <input type="file" id="gambar" name="gambar" accept="image/jpeg, image/png, image/jpg" required />
+      </div>
+
+      <button type="submit">Simpan Pemain</button>
+
+      <div class="button-lihat">
+        <a href="/list.html" class="button">Lihat Data Pemain</a>
+    </div>
+    </form>
+    <div id="msgBox" class="msg"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("playerForm");
+    const msgBox = document.getElementById("msgBox");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch("http://localhost:3000/api/records", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+        msgBox.style.display = "block";
+
+        if (response.ok) {
+          msgBox.className = "msg success";
+          msgBox.textContent = result.message;
+          form.reset();
+        } else {
+          msgBox.className = "msg error";
+          msgBox.textContent = "❌ " + (result.message || "Terjadi kesalahan!");
+        }
+      } catch (err) {
+        msgBox.style.display = "block";
+        msgBox.className = "msg error";
+        msgBox.textContent = "❌ Gagal terhubung ke server!";
+      }
+    });
+  </script>
+</body>
+</html>
