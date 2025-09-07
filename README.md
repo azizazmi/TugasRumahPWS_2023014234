@@ -56,3 +56,5 @@ Project ini dibuat untuk memenuhi tugas rumah mata kuliah PWS Semester Antara 20
 | **Input Data** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9fed01ec-7e87-443f-b667-41f47317969d" />|
 | **Daftar Data** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/01ee405f-3701-45da-b443-5f59c1008fb0" />|
 | **Daftar Data di Database** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f9c7cc15-0c70-431b-83ee-c5ca543fb63e" />|
+| **GET /api/records** |<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/86ca56fd-f2ea-473c-814f-d2da99efdc69" />
+|
