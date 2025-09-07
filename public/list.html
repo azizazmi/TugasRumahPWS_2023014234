@@ -5,27 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daftar Pemain - RJX Basket</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
     :root {
-      --light-gray: #f8f9fa;
+      /* Palet warna disamakan dengan form.html */
+      --primary-color: #E53935;
+      --primary-hover: #C62828;
+      --background-start: #FFF0F5;
+      --background-end: #FFDAB9;
       --dark-text: #212529;
       --gray-text: #6c757d;
-      --primary-color: #007BFF;
       --gray-border: #dee2e6;
+      --light-gray: #f8f9fa;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: var(--light-gray);
+      /* Latar belakang gradasi yang sama */
+      background: linear-gradient(135deg, var(--background-start), var(--background-end));
       color: var(--dark-text);
       margin: 0;
       padding: 2rem;
     }
 
+    /* Container utama dibuat menjadi "kartu" seperti di halaman form */
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
     header {
@@ -34,12 +44,13 @@
     }
 
     header h1 {
-      font-weight: 600;
-      font-size: 2.0rem;
+      font-weight: 700;
+      font-size: 2.5rem;
     }
     
     header p {
       color: var(--gray-text);
+      font-size: 1.1rem;
     }
     
     .button-group {
@@ -47,6 +58,7 @@
         margin-bottom: 2.5rem;
     }
     
+    /* Tombol disesuaikan dengan tema baru */
     .add-button {
         display: inline-block;
         padding: 0.8rem 1.5rem;
@@ -54,29 +66,31 @@
         color: white;
         text-decoration: none;
         border-radius: 8px;
-        font-weight: 500;
-        transition: background-color 0.2s, transform 0.1s;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 2px 8px rgba(229, 57, 53, 0.2);
     }
     
     .add-button:hover {
-        background-color: #0056b3;
+        background-color: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
     }
 
     .add-button:active {
         transform: scale(0.98);
     }
 
-    /* Styling untuk container tabel */
-    .table-container {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        overflow: hidden; /* Agar border-radius bekerja pada tabel */
+    /* Styling baru untuk table wrapper agar sudutnya rapi */
+    .table-wrapper {
+       overflow-x: auto; /* Agar bisa di-scroll di layar kecil */
+       border: 1px solid var(--gray-border);
+       border-radius: 12px;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse; /* Menghilangkan jarak antar border */
+      border-collapse: collapse;
     }
 
     th, td {
@@ -85,55 +99,74 @@
       vertical-align: middle;
     }
 
-    /* Styling untuk header tabel */
+    /* Header tabel menggunakan warna primer */
     thead {
-        background-color: var(--gray-text);
+      background-color: var(--primary-color);
     }
 
     th {
       font-weight: 600;
       font-size: 0.9rem;
-      color: var(--light-gray);
+      color: white;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    /* Styling untuk baris data */
     tbody tr {
         border-bottom: 1px solid var(--gray-border);
         transition: background-color 0.2s ease;
     }
 
     tbody tr:last-child {
-        border-bottom: none; /* Hapus border di baris terakhir */
+        border-bottom: none;
     }
 
     tbody tr:hover {
-        background-color: #f8f9fa; /* Efek hover */
+        background-color: var(--light-gray);
     }
 
-    /* Styling untuk gambar avatar */
     .player-avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%; /* Membuat gambar menjadi bulat */
+        width: 120px; /* Ukuran disesuaikan agar tidak terlalu besar */
+        height: 120px;
+        border-radius: 50%;
         object-fit: cover;
-        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border: 2px solid white;
     }
     
-    /* Untuk pesan loading atau error */
+    .player-name {
+      font-weight: 600;
+      color: var(--dark-text);
+    }
+
     .message td {
       text-align: center;
       font-size: 1.1rem;
       color: var(--gray-text);
       padding: 3rem;
     }
+
+    /* Responsif untuk layar kecil */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      .container {
+        padding: 1.5rem;
+      }
+      th, td {
+        padding: 0.75rem;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Tim Inti RJX Basket</h1>
+      <h1>🏀 Tim Inti RJX Basket</h1>
       <p>Daftar pemain resmi yang terdaftar di tim kami.</p>
     </header>
     
@@ -141,7 +174,7 @@
         <a href="/form.html" class="add-button">+ Tambah Pemain Baru</a>
     </div>
 
-    <div class="table-container">
+    <div class="table-wrapper">
         <table>
             <thead>
                 <tr>
@@ -187,8 +220,8 @@
             <td>
               <img src="http://localhost:3000${player.Gambar}" alt="Foto ${player.Nama}" class="player-avatar">
             </td>
-            <td><strong>${player.Nama}</strong></td>
-            <td>${player.Tinggi}</td>
+            <td><strong class="player-name">${player.Nama}</strong></td>
+            <td>${player.Tinggi} cm</td>
             <td>${tanggalBergabung}</td>
           `;
           tableBody.appendChild(row);
@@ -200,7 +233,6 @@
       }
     }
     
-    // Panggil fungsi saat halaman selesai dimuat
     document.addEventListener('DOMContentLoaded', loadPlayers);
   </script>
 </body>
