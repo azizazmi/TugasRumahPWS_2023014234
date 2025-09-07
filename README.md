@@ -13,14 +13,13 @@ Project ini dibuat untuk memenuhi tugas rumah mata kuliah PWS Semester Antara 20
 
 ## Struktur Project
 ```
-├── public/
+├── public/                            # Untuk styling form 
 │   ├── form.html
 │   ├── list.html
-├── routes/                            # Routing API untuk CRUD
-│   ├── data.js
 ├── uploads/                           # Untuk menyimpan gambar yang diunggah
 ├── server.js                          # Entry point server Express
 ├── db.js                              # Konfigurasi dan inisialisasi koneksi ke MySQL
+├── db_rjx_basket.js                   # Database
 └── README.md                          # Dokumentasi utama proyek
 ```
 
@@ -32,7 +31,7 @@ Project ini dibuat untuk memenuhi tugas rumah mata kuliah PWS Semester Antara 20
    ```
 2. Set Up MySQL Workbench
    - Buat database di MySQL Workbench dengan nama `db-rjx-basket`
-   - Import file `.sql` dari repository ini
+   - Import file `db_rjx_basket.sql` dari repository ini
 3. Set Up db.js
    - Buka file `db.js` di root project.
    - Sesuaikan isi konstanta dengan konfigurasi MySQL Workbench kamu
